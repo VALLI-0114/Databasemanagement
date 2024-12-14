@@ -1,0 +1,100 @@
+
+students = []
+
+def add_student():
+    student_id = input("Enter Student ID: ")
+    name = input("Enter Student Name: ")
+    age = input("Enter Student Age: ")
+    grade = input("Enter Student Grade: ")
+    
+    student = {
+        "ID": student_id,
+        "Name": name,
+        "Age": age,
+        "Grade": grade
+    }
+    students.append(student)
+    print(f"Student '{name}' added successfully!")
+
+def view_students():
+    if not students:
+        print("No students in the database.")
+        return
+    print("\n--- Student Records ---")
+    for i, student in enumerate(students, start=1):
+        print(f"{i}. ID: {student['ID']}, Name: {student['Name']}, Age: {student['Age']}, Grade: {student['Grade']}")
+    print("-----------------------\n")
+
+def update_student():
+    student_id = input("Enter the Student ID to update: ")
+    for student in students:
+        if student["ID"] == student_id:
+            print(f"Updating record for {student['Name']}")
+            student["Name"] = input("Enter new name: ")
+            student["Age"] = input("Enter new age: ")
+            student["Grade"] = input("Enter new grade: ")
+            print("Student record updated successfully!")
+            return
+    print(f"No student found with ID {student_id}.")
+
+def delete_student():
+    student_id = input("Enter the Student ID to delete: ")
+    for student in students:
+        if student["ID"] == student_id:
+            students.remove(student)
+            print(f"Student with ID {student_id} deleted successfully!")
+            return
+    print(f"No student found with ID {student_id}.")
+
+def search_student_by_name():
+    name = input("Enter the name to search: ")
+    found_students = [s for s in students if name.lower() in s["Name"].lower()]
+    if found_students:
+        print("\n--- Search Results ---")
+        for student in found_students:
+            print(f"ID: {student['ID']}, Name: {student['Name']}, Age: {student['Age']}, Grade: {student['Grade']}")
+        print("-----------------------\n")
+    else:
+        print(f"No students found with the name '{name}'.")
+
+def search_student_by_id():
+    student_id = input("Enter the Student ID to search: ")
+    for student in students:
+        if student["ID"] == student_id:
+            print(f"ID: {student['ID']}, Name: {student['Name']}, Age: {student['Age']}, Grade: {student['Grade']}")
+            return
+    print(f"No student found with ID {student_id}.")
+
+def menu():
+    while True:
+        print("\nStudent Database Menu")
+        print("1. Add Student")
+        print("2. View Students")
+        print("3. Update Student")
+        print("4. Delete Student")
+        print("5. Search Student by Name")
+        print("6. Search Student by ID")
+        print("7. Exit")
+
+        choice = input("Enter your choice (1-7): ")
+
+        if choice == '1':
+            add_student()
+        elif choice == '2':
+            view_students()
+        elif choice == '3':
+            update_student()
+        elif choice == '4':
+            delete_student()
+        elif choice == '5':
+            search_student_by_name()
+        elif choice == '6':
+            search_student_by_id()
+        elif choice == '7':
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    menu()
